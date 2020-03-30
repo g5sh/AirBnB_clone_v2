@@ -43,6 +43,17 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             obj = eval("{}()".format(my_list[0]))
+            for rep in range(0, len(my_list)-1):
+                my_list[rep] = my_list[rep].replace("=", " ")
+                new_at = my_list[rep].split()
+                new_at[1] = new_at[1].replace("_", " ")
+                try:
+                    new_at_val = eval(new_at[1])
+                    new_at[1] = new_at_val
+                except:
+                    pass
+                if type(new_at[1]) is not tuple:
+                    setattr(obj, new_at[0], new_at[1])
             obj.save()
             print("{}".format(obj.id))
         except SyntaxError:

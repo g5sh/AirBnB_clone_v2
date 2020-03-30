@@ -2,6 +2,7 @@
 """This is the user class"""
 from sqlalchemy import Column, Integer, String
 from models.base_model import BaseModel, Base
+from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):

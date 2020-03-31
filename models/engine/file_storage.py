@@ -31,7 +31,6 @@ class FileStorage:
                 if cls.__name__ in key:
                     dict_obj_cls[key] = value
             return dict_obj_cls
-            return cls.__objects
         else:
             return self.__objects
 

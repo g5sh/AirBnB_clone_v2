@@ -2,7 +2,7 @@
 """This is the file storage class for AirBnB"""
 import json
 from os import getenv
-from sqlalchemy import (create_engine), MetaData
+from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base

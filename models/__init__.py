@@ -22,6 +22,8 @@ else:
                "BaseModel": BaseModel,
                "City": City,
                "Amenity": Amenity,
+               "State": State,
+               "Place": Place,
                "Review": Review}
 
 

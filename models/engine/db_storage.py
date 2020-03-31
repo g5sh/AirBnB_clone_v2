@@ -26,10 +26,10 @@ class DBStorage:
         Constructor
         """
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
-            os.getenv("HBNB_MYSQL_USER"),
-            os.getenv('HBNB_MYSQL_PWD'),
-            os.getenv('HBNB_MYSQL_HOST'),
-            os.getenv('HBNB_MYSQL_DB')),
+            getenv("HBNB_MYSQL_USER"),
+            getenv('HBNB_MYSQL_PWD'),
+            getenv('HBNB_MYSQL_HOST'),
+            getenv('HBNB_MYSQL_DB')),
             pool_pre_ping=True)
 
         environment_name = getenv("HBNB_MYSQL_ENV")

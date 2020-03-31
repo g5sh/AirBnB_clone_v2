@@ -43,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             obj = eval("{}()".format(my_list[0]))
-            for rep in range(0, len(my_list)-1):
+            for rep in range(1, len(my_list)):
                 my_list[rep] = my_list[rep].replace("=", " ")
                 new_at = my_list[rep].split()
                 new_at[1] = new_at[1].replace("_", " ")

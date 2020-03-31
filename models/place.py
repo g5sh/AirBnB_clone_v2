@@ -6,6 +6,7 @@ from sqlalchemy import Column, Integer, String, Table, Float, ForeignKey
 from models.base_model import BaseModel, Base
 import models
 
+
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
@@ -33,5 +34,7 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
-    #reviews = relationship('Review', cascade='all, delete-orphan',
-     #                      backref='user')
+    """
+    reviews = relationship('Review', cascade='all, delete-orphan',
+                         backref='user')
+    """

@@ -2,7 +2,7 @@
 """This is the file storage class for AirBnB"""
 import json
 from os import getenv
-from sqlalchemy import (create_engine)
+from sqlalchemy import (create_engine), MetaData
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
@@ -26,15 +26,18 @@ class DBStorage:
         Constructor
         """
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
-            getenv("HBNB_MYSQL_USER"),
-            getenv('HBNB_MYSQL_PWD'),
-            getenv('HBNB_MYSQL_HOST'),
-            getenv('HBNB_MYSQL_DB')),
+            os.getenv("HBNB_MYSQL_USER"),
+            os.getenv('HBNB_MYSQL_PWD'),
+            os.getenv('HBNB_MYSQL_HOST'),
+            os.getenv('HBNB_MYSQL_DB')),
             pool_pre_ping=True)
 
         environment_name = getenv("HBNB_MYSQL_ENV")
         if environment_name == "test":
-            Base.metadata.drop_all()
+            Base.metadata.drop_all(self.__engine)
+
+        Session = sessionmaker(bind=self.__engine)
+        self.__session = Session()
 
     def all(self, cls=None):
         """
@@ -64,10 +67,11 @@ class DBStorage:
         """
         Add the object to the current database session
         """
-        try:
-            self.__session.add(obj)
-        except:
-            pass
+        if obj:
+            try:
+                self.__session.add(obj)
+            except:
+                pass
 
     def save(self):
         """
@@ -79,13 +83,19 @@ class DBStorage:
         """
         Delete from the current database session obj if not None
         """
-        self.__session.delete()
+        self.__session.delete(obj)
 
     def reload(self):
         """
         Bring it back
         """
+        from models.base_model import Base
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        session = scoped_session(Session)
-        self.__session = session()
+        Session_n = sessionmaker(bind=self.__engine,
+                                 expire_on_commit=False)
+        session = scoped_session(Session_n)
+        self.__session = Session()
+
+    def close(self):
+        '''closes session'''
+        self.__session.close()

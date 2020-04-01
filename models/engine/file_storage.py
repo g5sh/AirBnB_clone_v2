@@ -35,16 +35,16 @@ class FileStorage:
         """
         if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)
-            FileStorage.__objects[key] = obj
+            self.__objects[key] = obj
 
     def save(self):
         """serialize the file path to JSON file path
         """
         my_dict = {}
-        for key, value in FileStorage.__objects.items():
+        for key, value in self.__objects.items():
             my_dict[key] = value.to_dict()
-        with open(FileStorage.__file_path, mode='w', encoding="UTF-8") as fd:
-            json.dump(my_dict, fd)
+        with open(self.__file_path, 'w', encoding="UTF-8") as f:
+            json.dump(my_dict, f)
 
     def reload(self):
         '''
@@ -65,8 +65,8 @@ class FileStorage:
         """
         if obj is not None:
             key = "{}.{}".format(type(obj).__name__, obj.id)
-            if key in FileStorage.__objects:
-                del FileStorage.__objects[key]
+            if key in self.__objects:
+                del self.__objects[key]
 
     def close(self):
         """

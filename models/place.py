@@ -45,3 +45,31 @@ class Place(BaseModel, Base):
                            backref='user')
     amenities = relationship('Amenity', secondary=place_amenity,
                              back_populates="place_amenities", viewonly=False)
+
+    @property
+    def reviews(self):
+        """
+        Returns a list of Review instances with specific place id
+        """
+        review_inst = models.storage.all('Review').values()
+        all_revs = [inst for inst in review_inst if inst.place_id == self.id]
+        return all_revs
+
+    if os.getenv('HBNB_MYSQL_DB') == 'FileStorage':
+        @property
+        def amenities(self):
+            """
+            Returns a list of amenity instances
+            """
+            for amenity in self.amenity_ids:
+                amenity_inst = models.storage.all('Review').values()
+                all_amenities = [inst for inst in amenity_inst]
+            return all_amenities
+
+        @amenities.setter
+        def amenities(self, obj):
+            """
+            get
+            """
+            if type(obj) is Amenity:
+                self.amenity_ids.append(obj.id)

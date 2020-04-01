@@ -7,6 +7,12 @@ from models.base_model import BaseModel, Base
 import models
 
 
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60)
+                             ForeignKey('place.id'), nullable=False)
+                      Column('amenity_id', String(60)
+                             ForeignKey('amenity.id'), nullable=False))
+
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
@@ -37,3 +43,5 @@ class Place(BaseModel, Base):
 
     reviews = relationship('Review', cascade='all, delete-orphan',
                            backref='user')
+    amenities = relationship('Amenity', secondary=place_amenity,
+                             back_populates="place_amenities", viewonly=False)

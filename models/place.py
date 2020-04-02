@@ -70,9 +70,9 @@ class Place(BaseModel, Base):
             return all_amenities
 
         @amenities.setter
-        def amenities(self, obj):
+        def amenities(self, obj_am):
             """
-            get
+            set
             """
-            if type(obj) is Amenity:
-                self.amenity_ids.append(obj.id)
+            if isinstance(obj_am, models.Amenity) == True:
+                self.amenity_ids.append(obj_am.id)

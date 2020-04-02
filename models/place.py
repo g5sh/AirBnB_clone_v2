@@ -3,6 +3,7 @@
 import os
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import Column, Integer, String, Table, Float, ForeignKey
+from sqlalchemy import MetaData
 from models.base_model import BaseModel, Base
 import models
 

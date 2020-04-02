@@ -42,21 +42,23 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
 
-    reviews = relationship('Review', cascade='all, delete-orphan',
-                           backref='user')
-    amenities = relationship('Amenity', secondary=place_amenity,
-                             back_populates="place_amenities", viewonly=False)
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        reviews = relationship('Review', cascade='all, delete-orphan',
+                               backref='place')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 back_populates="place_amenities",
+                                 viewonly=False)
+    else:
+        @property
+        def reviews(self):
+            """
+            Returns a list of Review instances with specific place id
+            """
+            review_inst = models.storage.all('Review').values()
+            all_revs = [inst for inst in review_inst\
+                        if inst.place_id == self.id]
+            return all_revs
 
-    @property
-    def reviews(self):
-        """
-        Returns a list of Review instances with specific place id
-        """
-        review_inst = models.storage.all('Review').values()
-        all_revs = [inst for inst in review_inst if inst.place_id == self.id]
-        return all_revs
-
-    if os.getenv('HBNB_MYSQL_DB') == 'FileStorage':
         @property
         def amenities(self):
             """

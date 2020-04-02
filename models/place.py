@@ -14,6 +14,7 @@ place_amenity = Table('place_amenity', Base.metadata,
                       Column('amenity_id', String(60),
                              ForeignKey('amenities.id'), nullable=False))
 
+
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
@@ -55,7 +56,7 @@ class Place(BaseModel, Base):
             Returns a list of Review instances with specific place id
             """
             review_inst = models.storage.all(Review).values()
-            all_revs = [inst for inst in review_inst\
+            all_revs = [inst for inst in review_inst
                         if inst.place_id == self.id]
             return all_revs
 

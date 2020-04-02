@@ -14,7 +14,6 @@ place_amenity = Table('place_amenity', Base.metadata,
                       Column('amenity_id', String(60),
                              ForeignKey('amenities.id'), nullable=False))
 
-
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
@@ -43,37 +42,35 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     amenity_ids = []
 
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        reviews = relationship('Review', cascade='all, delete-orphan',
-                               backref='place')
-        amenities = relationship('Amenity', secondary=place_amenity,
-                                 back_populates="place_amenities",
-                                 viewonly=False)
-    else:
-        @property
-        def reviews(self):
-            """
-            Returns a list of Review instances with specific place id
-            """
-            review_inst = models.storage.all(Review).values()
-            all_revs = [inst for inst in review_inst
-                        if inst.place_id == self.id]
-            return all_revs
+    reviews = relationship('Review', cascade='all, delete-orphan',
+                           backref='user')
+    amenities = relationship('Amenity', secondary=place_amenity,
+                             back_populates="place_amenities", viewonly=False)
 
+    @property
+    def reviews(self):
+        """
+        Returns a list of Review instances with specific place id
+        """
+        review_inst = models.storage.all('Review').values()
+        all_revs = [inst for inst in review_inst if inst.place_id == self.id]
+        return all_revs
+
+    if os.getenv('HBNB_MYSQL_DB') == 'FileStorage':
         @property
         def amenities(self):
             """
             Returns a list of amenity instances
             """
             for amenity in self.amenity_ids:
-                amenity_inst = models.storage.all(Amenity).values()
+                amenity_inst = models.storage.all('Review').values()
                 all_amenities = [inst for inst in amenity_inst]
             return all_amenities
 
         @amenities.setter
-        def amenities(self, obj_am):
+        def amenities(self, obj):
             """
-            set
+            get
             """
-            if type(obj_am) is Amenity:
-                self.amenity_ids.append(obj_am.id)
+            if type(obj) is Amenity:
+                self.amenity_ids.append(obj.id)

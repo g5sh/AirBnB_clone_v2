@@ -54,7 +54,7 @@ class Place(BaseModel, Base):
             """
             Returns a list of Review instances with specific place id
             """
-            review_inst = models.storage.all('Review').values()
+            review_inst = models.storage.all(Review).values()
             all_revs = [inst for inst in review_inst\
                         if inst.place_id == self.id]
             return all_revs
@@ -65,7 +65,7 @@ class Place(BaseModel, Base):
             Returns a list of amenity instances
             """
             for amenity in self.amenity_ids:
-                amenity_inst = models.storage.all('Amenity').values()
+                amenity_inst = models.storage.all(Amenity).values()
                 all_amenities = [inst for inst in amenity_inst]
             return all_amenities
 

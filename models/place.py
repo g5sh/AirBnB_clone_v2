@@ -74,5 +74,5 @@ class Place(BaseModel, Base):
             """
             set
             """
-            if isinstance(obj_am, models.Amenity) == True:
+            if type(obj_am) is Amenity:
                 self.amenity_ids.append(obj_am.id)

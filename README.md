@@ -55,5 +55,5 @@ Ex:
 
 
 ## Autors
-[Emmanuel Gomez]()
+[Emmanuel Gomez](https://mobile.twitter.com/Gomez5sh
 [Sergio Pietri]()

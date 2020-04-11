@@ -22,7 +22,7 @@ def do_pack():
     with hide('running'):
         versions_dir = local('mkdir -p versions')
 
-    tar = local('tar -cvzf versions/web_static_%s.tgz web_static/' %
+        tar = local('tar -cvzf versions/web_static_%s.tgz web_static/' %
                 (datetime.now().strftime('%Y%m%d%H%M%S')))
 
     with hide('running'):
@@ -35,7 +35,8 @@ def do_pack():
 
     with hide('running'):
         archive_path = "versions/web_static_{:s}.tgz".\
-                             format(datetime.now().strftime('%Y%m%d%H%M%S'))
+            format(datetime.now().strftime('%Y%m%d%H%M%S'))
+
 
 def do_deploy(archive_path):
     """
@@ -61,6 +62,7 @@ def do_deploy(archive_path):
         return(True)
     except BaseException:
         return(False)
+
 
 def deploy():
     """

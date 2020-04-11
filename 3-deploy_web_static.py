@@ -38,7 +38,9 @@ def do_pack():
                              format(datetime.now().strftime('%Y%m%d%H%M%S'))
 
 def do_deploy(archive_path):
-    """Upload backup to server"""
+    """
+    Upload backup to server
+    """
     if not archive_path:
         return(False)
     name = archive_path.split('/')[1]
@@ -60,9 +62,10 @@ def do_deploy(archive_path):
     except BaseException:
         return(False)
 
-
 def deploy():
-    """Full deployment"""
+    """
+    Full deployment
+    """
     try:
         path = do_pack()
     except BaseException:

@@ -1,21 +1,29 @@
-#!/usr/bin/phyton3
-"""Fabric script that generates a .tgz"""
-import os
-from fabric.api import local, run, prefix, env
+#!/usr/bin/python3
+"""
+Fabric script to create a backup
+"""
+from fabric.api import local
+from fabric.api import hide
 from datetime import datetime
 
 
-env.host = ['localhost']
-
 def do_pack():
-    time = datetime.now()
-    web  = "web_static_{}{}{}{}{}{}.tgz".format(time.year,
-                                                time.month,
-                                                time.day,
-                                                time.hour,
-                                                time.minute,
-                                                time.second)
-    local('mkdir -p versions')
-    local("tar -cvzf versions/{} web_static".format(web))
-    size = os.stat("versions/{}".format(web)).st_size
-    print("web_static packed: versions/{} -> {}".format(web, size))
+    """
+    Create folder backup with date and tgz extension
+    """
+    print("Packing web_static to versions/web_static_%s.tgz" %
+          (datetime.now().strftime('%Y%m%d%H%M%S')))
+
+    with hide('running'):
+        versions_dir = local('mkdir -p versions')
+
+    tar = local('tar -cvzf versions/web_static_%s.tgz web_static/' %
+                (datetime.now().strftime('%Y%m%d%H%M%S')))
+
+    with hide('running'):
+        file_size = local('wc -c < versions/web_static_{}.tgz'.
+                          format(datetime.now().strftime('%Y%m%d%H%M%S')),
+                          capture=True)
+
+    print("web_static packed: versions/web_static_{:s}.tgz -> {:}Bytes".
+          format(datetime.now().strftime('%Y%m%d%H%M%S'), file_size))

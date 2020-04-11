@@ -1,4 +1,5 @@
 #!/usr/bin/phyton3
+"""Fabric script that generates a .tgz"""
 import os
 from fabric.api import local, run, prefix, env
 from datetime import datetime
@@ -15,6 +16,6 @@ def do_pack():
                                                 time.minute,
                                                 time.second)
     local('mkdir -p versions')
-    local("tar -cvfz versions/{} web_static".format(web))
+    local("tar -cvzf versions/{} web_static".format(web))
     size = os.stat("versions/{}".format(web)).st_size
-    print("web_static package: versions/{} -> {}".format(web, size))
+    print("web_static packed: versions/{} -> {}".format(web, size))

@@ -35,7 +35,7 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-
+    """Upload backup to server"""
     if not archive_path:
         return(False)
     name = archive_path.split('/')[1]

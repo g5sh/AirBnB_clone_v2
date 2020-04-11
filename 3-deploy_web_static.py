@@ -9,6 +9,9 @@ from fabric.api import run
 from datetime import datetime
 from os import path
 from fabric.api import env
+
+
+env.user = 'ubuntu'
 env.hosts = ['35.196.106.109', '54.196.186.129']
 
 
@@ -22,7 +25,7 @@ def do_pack():
     with hide('running'):
         versions_dir = local('mkdir -p versions')
 
-        tar = local('tar -cvzf versions/web_static_%s.tgz web_static/' %
+    tar = local('tar -cvzf versions/web_static_%s.tgz web_static/' %
                 (datetime.now().strftime('%Y%m%d%H%M%S')))
 
     with hide('running'):
@@ -36,7 +39,6 @@ def do_pack():
     with hide('running'):
         archive_path = "versions/web_static_{:s}.tgz".\
             format(datetime.now().strftime('%Y%m%d%H%M%S'))
-
 
 def do_deploy(archive_path):
     """

@@ -32,7 +32,8 @@ def python_is_cool(text):
 
 
 @app.route('/number/<n>', strict_slashes=False)
-def number():
+def number(n):
+    """number"""
     return '%d is a number' % n
 
 

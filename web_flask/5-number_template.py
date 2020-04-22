@@ -29,7 +29,7 @@ def c_is_fun(text):
 @app.route('/python/<text>', strict_slashes=False)
 def python_is_cool(text):
     """python is cool"""
-    return('Python %s'.format(text.replace("_", " ")))
+    return('Python {}'.format(text.replace("_", " ")))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
@@ -41,8 +41,9 @@ def number(n):
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def html_n(n):
     """ html5 """
-    return render_template('5-number.html', n=n)
+    return render_template('5-number.html', value=n)
 
 
 if __name__ == "__main__":
+    """main"""
     app.run(host='0.0.0.0', port='5000')

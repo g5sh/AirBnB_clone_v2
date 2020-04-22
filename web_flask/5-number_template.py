@@ -25,15 +25,15 @@ def hbnb():
 def c_is_fun(text):
     """c is fun
     """
-    return "C {:d}".format(text.replace("_", " "))
+    return "C " + text.replace("_", " ")
 
 
-@app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
+@app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python_is_cool(text):
+def python_is_cool(text='is_cool'):
     """python is cool
     """
-    return "Python {:d}".format(text.replace("_", " "))
+    return "Python " + text.replace("_", " ")
 
 
 @app.route('/number/<int:n>', strict_slashes=False)

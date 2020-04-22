@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 '''crates a flask web application'''
-from flask import Flask, render_template
+from flask import Flask
+from flask import render_template
+
 
 app = Flask(__name__)
 
@@ -20,14 +22,14 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def c_is_fun(text):
     """c is fun"""
-    return 'C %s' % text
+    return 'C {}'.format(text.replace("_", " "))
 
 
 @app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_is_cool(text):
     """python is cool"""
-    return 'Python %s' % text.replace("_", " ")
+    return 'Python %s'.format(text.replace("_", " "))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
@@ -38,8 +40,7 @@ def number(n):
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def html_n(n):
-    """ html5
-    """
+    """ html5 """
     return render_template('5-number.html', n=n)
 
 

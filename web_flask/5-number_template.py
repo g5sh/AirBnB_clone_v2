@@ -1,20 +1,18 @@
 #!/usr/bin/python3
 '''crates a flask web application'''
-from flask import Flask
-from flask import render_template
-
-
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route('/')
+
+@app.route('/', strict_slashes=False)
 def hello():
     """Hello
     """
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
+@app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """hbnb
     """

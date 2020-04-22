@@ -8,26 +8,26 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     """Hello"""
-    return('Hello HBNB!')
+    return 'Hello HBNB!'
 
 
 @app.route('/hbnb')
 def hbnb():
     """hbnb"""
-    return('HBNB')
+    return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_is_fun(text):
     """c is fun"""
-    return('C {:d}'.format(text.replace("_", " ")))
+    return "C {:d}".format(text.replace("_", " "))
 
 
 @app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_is_cool(text):
     """python is cool"""
-    return('Python {:d}'.format(text.replace("_", " ")))
+    return "Python {:d}".format(text.replace("_", " "))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)

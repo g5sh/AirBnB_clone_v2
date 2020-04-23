@@ -7,14 +7,14 @@ from models import storage
 app = Flask(__name__)
 
 
-@app.routare('/states_list')
+@app.routare('/states_list', strict_slashes=False)
 def states_list():
     """States"""
-    return render_template('7-states_list.html', storage=storage.all('State'))
+    return render_template('7-states_list.html', storage=storage.all(States).values())
 
 
 @app.teardown_appcontext
-def close(exception):
+def close(error):
     """close"""
     storage.close()
 

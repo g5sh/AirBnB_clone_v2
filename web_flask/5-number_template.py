@@ -1,53 +1,48 @@
 #!/usr/bin/python3
-"""task 5
-"""
+"""crates a flask web application"""
 from flask import Flask
 from flask import render_template
+
+
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
 def hello():
-    """ display greeting
-    """
+    """Hello"""
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-def hello_hbnb():
-    """ display hbnb
-    """
+def hbnb():
+    """hbnb"""
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def what_is_c(text):
-    """ display what is c
-    """
-    return "C {}".format(text.replace('_', ' '))
+def c_is_fun(text):
+    """c is fun"""
+    return "C " + text.replace('_', ' ')
 
 
-@app.route('/python/', strict_slashes=False)
+@app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def what_is_python(text="is cool"):
-    """ display what is python
-    """
-    return "Python {}".format(text.replace('_', ' '))
+def python_is_cool(text='is_cool'):
+    """python is cool"""
+    return "Python " + text.replace('_', ' ')
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def to_n_or_not_to_n(n):
-    """ display if n is integer
-    """
-    return "{} is a number".format(n)
+def is_n_number(n):
+    """number"""
+    return "{:d} is a number".format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def render_n_if_n(n):
-    """ display template if n is integer
-    """
-    return render_template('5-number.html', n=n)
+def template(n):
+    """HTML 5"""
+    return render_template('5-number.html', value=n)
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000')
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)

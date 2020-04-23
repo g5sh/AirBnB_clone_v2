@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """This is the state class"""
-import os
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship, backref
@@ -16,15 +15,15 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state",
                           cascade="all, delete, delete-orphan")
-    if os.getenv('HBNB_TYPE_STORAGE') =='db':
-        @property
-        def cities(self):
-            """
-            List cities
-            """
-            city_query = models.storage.all(City)
-            city_list = []
-            for c_value in city_query.values():
-                if c_value.state_id == self.id:
-                    city_list.append(c_value)
-                return c_value
+
+    @property
+    def cities(self):
+        """
+        List cities
+        """
+        city_query = models.storage.all(City)
+        city_list = []
+        for c_value in city_query.values():
+            if c_value.state_id == self.id:
+                city_list.append(c_value)
+            return c_value
